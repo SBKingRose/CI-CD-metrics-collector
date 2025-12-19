@@ -1,0 +1,662 @@
+[
+    [
+        "Repository",
+        "Builds",
+        "Build Duration",
+        "Build Minutes Used"
+    ],
+    {
+        "Build Duration": "3d 1h 29m 48s",
+        "Build Minutes Used": "6d 14h 23m 0s",
+        "Builds": 146,
+        "Repository": "emr-dev/clinical-service"
+    },
+    {
+        "Build Duration": "1d 7h 45m 43s",
+        "Build Minutes Used": "6d 0h 13m 2s",
+        "Builds": 163,
+        "Repository": "emr-dev/woundtech-ui"
+    },
+    {
+        "Build Duration": "0d 6h 17m 34s",
+        "Build Minutes Used": "2d 6h 15m 13s",
+        "Builds": 11,
+        "Repository": "emr-dev/woundtech-test-automation"
+    },
+    {
+        "Build Duration": "0d 22h 25m 46s",
+        "Build Minutes Used": "2d 22h 30m 39s",
+        "Builds": 108,
+        "Repository": "emr-dev/patient-service"
+    },
+    {
+        "Build Duration": "0d 5h 46m 13s",
+        "Build Minutes Used": "0d 8h 59m 22s",
+        "Builds": 49,
+        "Repository": "emr-dev/communication-service"
+    },
+    {
+        "Build Duration": "0d 4h 50m 51s",
+        "Build Minutes Used": "0d 7h 32m 59s",
+        "Builds": 31,
+        "Repository": "emr-dev/woundhub"
+    },
+    {
+        "Build Duration": "0d 3h 32m 32s",
+        "Build Minutes Used": "0d 5h 19m 23s",
+        "Builds": 45,
+        "Repository": "emr-dev/user-service"
+    },
+    {
+        "Build Duration": "0d 4h 40m 13s",
+        "Build Minutes Used": "0d 4h 47m 21s",
+        "Builds": 47,
+        "Repository": "emr-dev/gateway-federated"
+    },
+    {
+        "Build Duration": "0d 3h 7m 10s",
+        "Build Minutes Used": "0d 4h 43m 9s",
+        "Builds": 46,
+        "Repository": "emr-dev/audit-service"
+    },
+    {
+        "Build Duration": "0d 2h 6m 8s",
+        "Build Minutes Used": "0d 4h 14m 47s",
+        "Builds": 39,
+        "Repository": "emr-dev/eprescription-service"
+    },
+    {
+        "Build Duration": "0d 2h 23m 45s",
+        "Build Minutes Used": "0d 3h 8m 57s",
+        "Builds": 42,
+        "Repository": "emr-dev/subscription-service"
+    },
+    {
+        "Build Duration": "0d 2h 55m 22s",
+        "Build Minutes Used": "0d 3h 50m 12s",
+        "Builds": 41,
+        "Repository": "emr-dev/es-index-service"
+    },
+    {
+        "Build Duration": "0d 2h 30m 48s",
+        "Build Minutes Used": "0d 3h 19m 24s",
+        "Builds": 49,
+        "Repository": "emr-dev/interval-service"
+    },
+    {
+        "Build Duration": "0d 2h 13m 45s",
+        "Build Minutes Used": "0d 2h 24m 50s",
+        "Builds": 23,
+        "Repository": "emr-dev/rpa-referrals"
+    },
+    {
+        "Build Duration": "0d 8h 33m 39s",
+        "Build Minutes Used": "0d 21h 21m 16s",
+        "Builds": 66,
+        "Repository": "emr-dev/woundtech-seed-prod"
+    },
+    {
+        "Build Duration": "0d 0h 41m 55s",
+        "Build Minutes Used": "0d 1h 36m 40s",
+        "Builds": 3,
+        "Repository": "emr-dev/fhir-server"
+    },
+    {
+        "Build Duration": "0d 1h 13m 38s",
+        "Build Minutes Used": "0d 1h 31m 9s",
+        "Builds": 11,
+        "Repository": "emr-dev/woundtech_django_ocr"
+    },
+    {
+        "Build Duration": "0d 7h 46m 38s",
+        "Build Minutes Used": "0d 13h 50m 24s",
+        "Builds": 58,
+        "Repository": "emr-dev/scheduling-service"
+    },
+    {
+        "Build Duration": "0d 5h 8m 4s",
+        "Build Minutes Used": "0d 10h 11m 44s",
+        "Builds": 59,
+        "Repository": "emr-dev/task-service"
+    },
+    {
+        "Build Duration": "0d 0h 8m 36s",
+        "Build Minutes Used": "0d 0h 8m 35s",
+        "Builds": 1,
+        "Repository": "emr-dev/woundtech-pw"
+    },
+    {
+        "Build Duration": "0d 0h 21m 35s",
+        "Build Minutes Used": "0d 0h 53m 0s",
+        "Builds": 3,
+        "Repository": "emr-dev/patient-referral-automation"
+    },
+    {
+        "Build Duration": "0d 0h 9m 17s",
+        "Build Minutes Used": "0d 0h 32m 12s",
+        "Builds": 5,
+        "Repository": "emr-dev/ccd-generation"
+    },
+    {
+        "Build Duration": "0d 0h 18m 45s",
+        "Build Minutes Used": "0d 0h 26m 4s",
+        "Builds": 14,
+        "Repository": "emr-dev/bidw_etl"
+    },
+    {
+        "Build Duration": "0d 0h 0m 40s",
+        "Build Minutes Used": "0d 0h 0m 40s",
+        "Builds": 1,
+        "Repository": "emr-dev/hapi-fhir-jpaserver-starter"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/wt-opensearch-data-loader"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/woundtech_ocr"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/woundtech-wp"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/woundtech-tests"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/woundtech-terraform"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/woundtech-seed-test"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/woundtech-performance-tests"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/woundtech-ml-models"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/woundtech-library"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/woundtech-infra"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/woundtech-fhir-resources"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/woundtech-fhir-graphql"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/woundtech-element"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/woundtech-devops"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/woundtech-decisions"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/woundtech-ai"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/woundtech-adt-poc"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/webscrap-puppeteer"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/ui-libraries"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/test-workspace"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/sync-service-archived"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/sqs-util"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/sfmc-util"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/service-template"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/salesforce"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/resource-parser"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/regusa-customlogin"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/referral-management"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/referral-dashboard-puertorico"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/qa-automation-tracker"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/ptcore"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/power-bi-migration"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/postmanapi-poc"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/pipe"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/pdf-generator"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/patient-access"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/ocrui"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/ocr-release"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/npm-server"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/node-template"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/mongodb-util"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/metrics-collector"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/matillion_qa"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/matillion_prodincr"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/matillion_prod"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/matillion_dev"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/lookertest"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/lookerapps"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/lambda"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/jellyfish"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/interview-assessments"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/hackathon-2025"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/google-routing-poc"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/git-practice"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/forge-applications"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/fhir-sdk"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/fhir-graphql"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/etlextract_python"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/etl_matillion"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/emr-release"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/emr-local-setup"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/emr-fhir-reports"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/elastic-search-util"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/ease-my-day-chrome-extension"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/doc-type"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/deprecated-openemr"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/demogpt"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/demo_gpt"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/decisions"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/datadog-sdk"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/data-science"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/chitwinder-test"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/cds"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/cc-spike-poc"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/breached-s3-file-type"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/biwe_rds_qa"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/biwe_prod"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/biwe_emrdev"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/biwe_edw_processexplores"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/biwe_edw_dev"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/biwe_devenv"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/biwe_dev"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/bidev_matillion"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/amman-ocr"
+    },
+    {
+        "Build Duration": "0d 0h 0m 0s",
+        "Build Minutes Used": "0d 0h 0m 0s",
+        "Builds": 0,
+        "Repository": "emr-dev/ai_datascience"
+    }
+]

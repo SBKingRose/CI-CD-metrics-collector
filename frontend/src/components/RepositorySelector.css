@@ -1,0 +1,21 @@
+.repo-list {
+  list-style: none;
+}
+
+.repo-item {
+  padding: 0.75rem;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 0.25rem;
+  transition: background-color 0.2s;
+}
+
+.repo-item:hover {
+  background-color: #f0f0f0;
+}
+
+.repo-item.active {
+  background-color: #e7f3ff;
+  font-weight: 600;
+}
+

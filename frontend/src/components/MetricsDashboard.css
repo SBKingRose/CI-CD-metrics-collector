@@ -1,0 +1,145 @@
+.metrics-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.metric-card {
+  background: rgba(255,255,255,0.04);
+  padding: 1.5rem;
+  border-radius: 10px;
+  border-left: 4px solid #3b82f6;
+  color: #e5e7eb;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+.metric-label {
+  font-size: 0.85rem;
+  color: #cbd5e1;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 0.25rem;
+}
+
+.metric-sublabel {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.images-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.image-item {
+  padding: 1rem;
+  background: rgba(255,255,255,0.04);
+  border-radius: 10px;
+  border-left: 4px solid #22c55e;
+  color: #e2e8f0;
+}
+
+.image-env {
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.image-name {
+  font-family: monospace;
+  color: #93c5fd;
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+}
+
+.image-meta {
+  font-size: 0.78rem;
+  color: #cbd5e1;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #cbd5e1;
+}
+
+.table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.table-head, .table-row {
+  display: grid;
+  grid-template-columns: 0.8fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.table-head {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table-row {
+  background: rgba(255,255,255,0.03);
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.05);
+  color: #e2e8f0;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.empty-state {
+  color: #94a3b8;
+  font-style: italic;
+  padding: 0.5rem 0;
+}
+
+.how-calculated {
+  margin-top: 1rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 0.75rem;
+  border-radius: 10px;
+  color: #cbd5e1;
+}
+
+.how-calculated summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.how-body {
+  margin-top: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  line-height: 1.55;
+}
+
