@@ -86,14 +86,16 @@ function App() {
             selectedRepo={selectedRepo}
             onSelect={setSelectedRepo}
           />
-          <DiagnosticsPanel diagnostics={diagnostics} />
         </div>
 
         <div className="main-content col-md-9">
           <GlobalMetrics summary={summary} loading={summaryLoading} repositories={repositories} />
           {selectedRepo && (
-            <MetricsDashboard repositoryId={selectedRepo} />
+            <MetricsDashboard repositoryId={selectedRepo} repositories={repositories} />
           )}
+          <div className="mt-4">
+            <DiagnosticsPanel diagnostics={diagnostics} />
+          </div>
         </div>
       </div>
     </div>

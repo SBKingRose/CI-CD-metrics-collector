@@ -162,15 +162,23 @@ class DataCollector:
                         # If API doesn't provide structured error message, fallback to log excerpt
                         if not error_msg and log_excerpt:
                             error_msg = log_excerpt[:1000]
+                        
+                        # Extract error signature hash for cross-repo matching
+                        from app.analytics.error_analyzer import ErrorAnalyzer
+                        analyzer = ErrorAnalyzer(self.db)
+                        error_signature, signature_hash = analyzer.extract_error_signature(log_excerpt or error_msg)
+                        
+                        # Also use pattern matcher for backward compatibility
                         pattern_matcher = PatternMatcher(self.db)
                         pattern = pattern_matcher.normalize_error_message(error_msg)
                         
+                        # Use signature hash as the primary pattern for cross-repo matching
                         failure_type = self._classify_failure(error_msg)
                         failure = BuildFailure(
                             build_id=build.id,
                             step_id=step.id,
                             error_message=error_msg,
-                            error_pattern=pattern,
+                            error_pattern=signature_hash or pattern,  # Prefer signature hash for matching
                             failure_type=failure_type,
                             occurred_at=step_completed or datetime.now(timezone.utc)
                         )
@@ -229,7 +237,11 @@ class DataCollector:
             
             if pr_data.get("created_on"):
                 created_at = datetime.fromisoformat(pr_data["created_on"].replace("Z", "+00:00"))
-            if pr_data.get("updated_on"):
+            # Use closed_on if available (more accurate for DORA velocity)
+            if pr_data.get("closed_on"):
+                closed_at = datetime.fromisoformat(pr_data["closed_on"].replace("Z", "+00:00"))
+                merged_at = closed_at  # For merged PRs, closed_on is when it merged
+            elif pr_data.get("updated_on"):
                 merged_at = datetime.fromisoformat(pr_data["updated_on"].replace("Z", "+00:00"))
             
             pr = PullRequest(
@@ -247,12 +259,25 @@ class DataCollector:
         self.db.commit()
     
     def collect_deployments(self, repo_slug: str):
-        """Collect deployment information"""
+        """Collect deployment information - fetch ALL deployments with pagination"""
         repo = self.db.query(Repository).filter(Repository.slug == repo_slug).first()
         if not repo:
+            print(f"[collect_deployments] Repository {repo_slug} not found in database")
             return
         
-        deployments_data = self.bitbucket.get_deployments(repo_slug)
+        # Get all deployments (paginate through all pages, up to 500)
+        try:
+            deployments_data = self.bitbucket.get_all_deployments(repo_slug, limit=500)
+            print(f"[collect_deployments] Fetched {len(deployments_data)} deployments for {repo_slug}")
+        except Exception as e:
+            print(f"[collect_deployments] Error fetching deployments for {repo_slug}: {e}")
+            return
+        
+        if not deployments_data:
+            print(f"[collect_deployments] No deployments returned from API for {repo_slug}")
+            return
+        
+        added_count = 0
         
         for dep_data in deployments_data:
             env_name = dep_data.get("environment", "")
@@ -297,8 +322,10 @@ class DataCollector:
                     commit_hash=commit_hash
                 )
                 self.db.add(dep)
+                added_count += 1
         
         self.db.commit()
+        print(f"[collect_deployments] Added {added_count} new deployments for {repo_slug}")
     
     def _classify_failure(self, error_msg: str) -> str:
         """Classify failure type from error message"""

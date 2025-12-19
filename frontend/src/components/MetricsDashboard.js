@@ -5,7 +5,7 @@ import './MetricsDashboard.css';
 
 const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
-function MetricsDashboard({ repositoryId }) {
+function MetricsDashboard({ repositoryId, repositories = [] }) {
   const [metrics, setMetrics] = useState(null);
   const [trends, setTrends] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,6 +15,25 @@ function MetricsDashboard({ repositoryId }) {
   const [devSlowdown, setDevSlowdown] = useState(null);
   const [vulns, setVulns] = useState(null);
   const [resource, setResource] = useState(null);
+  const [buildStats, setBuildStats] = useState(null);
+  const [latestDeployment, setLatestDeployment] = useState(null);
+  const [last5Pipelines, setLast5Pipelines] = useState([]);
+  const [buildNumbersByEnv, setBuildNumbersByEnv] = useState(null);
+  const [slowPipelineAnalysis, setSlowPipelineAnalysis] = useState(null);
+  const [pipelineComparisons, setPipelineComparisons] = useState(null);
+  const [lastPipelineDeploymentTime, setLastPipelineDeploymentTime] = useState(null);
+  const [latestFailureAnalysis, setLatestFailureAnalysis] = useState(null);
+
+  // Define all load functions before useEffect
+  const loadLastPipelineDeploymentTime = async () => {
+    if (!repositoryId) return;
+    try {
+      const response = await axios.get(`${API_BASE}/api/repositories/${repositoryId}/last-pipeline-deployment-time`);
+      setLastPipelineDeploymentTime(response.data);
+    } catch (error) {
+      console.error('Error loading last pipeline deployment time:', error);
+    }
+  };
 
   useEffect(() => {
     if (repositoryId) {
@@ -26,9 +45,17 @@ function MetricsDashboard({ repositoryId }) {
       loadDevSlowdown();
       loadVulns();
       loadResource();
+      loadBuildStats();
+      loadLatestDeployment();
+      loadLast5Pipelines();
+      loadBuildNumbersByEnv();
+      loadSlowPipelineAnalysis();
+      loadPipelineComparisons();
+      loadLatestFailureAnalysis();
+      loadLastPipelineDeploymentTime();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [repositoryId]);
+  }, [repositoryId, repositories]);
 
   const loadMetrics = async () => {
     try {
@@ -98,33 +125,93 @@ function MetricsDashboard({ repositoryId }) {
 
   const loadVulns = async () => {
     try {
-      // For demo, use repo name from repositories list
-      let repoSlug = '';
-      if (window && window.repositories && repositoryId) {
-        const repo = window.repositories.find(r => r.id === repositoryId);
-        repoSlug = repo ? repo.slug || repo.name : '';
-      }
-      // fallback for demo
-      if (!repoSlug) repoSlug = 'woundhub';
+      const repo = repositories.find(r => r.id === repositoryId);
+      if (!repo) return;
+      const repoSlug = repo.slug;
       const response = await axios.get(`${API_BASE}/api/vulnerabilities/${repoSlug}`);
       setVulns(response.data);
     } catch (error) {
-      setVulns({ error: error.message });
+      console.error('Error loading vulnerabilities:', error);
+      setVulns({ repo: '', vulnerabilities: [], cross_repo: {} });
     }
   };
 
   const loadResource = async () => {
     try {
-      let repoSlug = '';
-      if (window && window.repositories && repositoryId) {
-        const repo = window.repositories.find(r => r.id === repositoryId);
-        repoSlug = repo ? repo.slug || repo.name : '';
-      }
-      if (!repoSlug) repoSlug = 'woundhub';
+      const repo = repositories.find(r => r.id === repositoryId);
+      if (!repo) return;
+      const repoSlug = repo.slug;
       const response = await axios.get(`${API_BASE}/api/resource-usage/${repoSlug}`);
       setResource(response.data);
     } catch (error) {
-      setResource({ error: error.message });
+      console.error('Error loading resource usage:', error);
+    }
+  };
+
+  const loadBuildStats = async () => {
+    try {
+      const repo = repositories.find(r => r.id === repositoryId);
+      if (!repo) return;
+      const repoSlug = repo.slug;
+      const response = await axios.get(`${API_BASE}/api/repositories/${repoSlug}/build-stats`);
+      setBuildStats(response.data);
+    } catch (error) {
+      console.error('Error loading build stats:', error);
+    }
+  };
+
+  const loadLatestDeployment = async () => {
+    try {
+      const response = await axios.get(`${API_BASE}/api/repositories/${repositoryId}/latest-deployment`);
+      setLatestDeployment(response.data);
+    } catch (error) {
+      console.error('Error loading latest deployment:', error);
+    }
+  };
+
+  const loadLast5Pipelines = async () => {
+    try {
+      const response = await axios.get(`${API_BASE}/api/repositories/${repositoryId}/last-5-pipelines`);
+      setLast5Pipelines(response.data || []);
+    } catch (error) {
+      console.error('Error loading last 5 pipelines:', error);
+      setLast5Pipelines([]);
+    }
+  };
+
+  const loadBuildNumbersByEnv = async () => {
+    try {
+      const response = await axios.get(`${API_BASE}/api/repositories/${repositoryId}/build-numbers-by-environment`);
+      setBuildNumbersByEnv(response.data);
+    } catch (error) {
+      console.error('Error loading build numbers by environment:', error);
+    }
+  };
+
+  const loadSlowPipelineAnalysis = async () => {
+    try {
+      const response = await axios.get(`${API_BASE}/api/repositories/${repositoryId}/slow-pipeline-analysis`);
+      setSlowPipelineAnalysis(response.data);
+    } catch (error) {
+      console.error('Error loading slow pipeline analysis:', error);
+    }
+  };
+
+  const loadPipelineComparisons = async () => {
+    try {
+      const response = await axios.get(`${API_BASE}/api/repositories/${repositoryId}/pipeline-comparisons`);
+      setPipelineComparisons(response.data);
+    } catch (error) {
+      console.error('Error loading pipeline comparisons:', error);
+    }
+  };
+
+  const loadLatestFailureAnalysis = async () => {
+    try {
+      const response = await axios.get(`${API_BASE}/api/repositories/${repositoryId}/latest-failure-analysis-by-id`);
+      setLatestFailureAnalysis(response.data);
+    } catch (error) {
+      console.error('Error loading latest failure analysis:', error);
     }
   };
 
@@ -162,9 +249,13 @@ function MetricsDashboard({ repositoryId }) {
           <div className="metric-card">
             <div className="metric-label">Build Minutes</div>
             <div className="metric-value">
-              {metrics.buildMinutes?.total_minutes?.toFixed(0) || 0}
+              {buildStats?.build_minutes_decimal 
+                ? buildStats.build_minutes_decimal.toFixed(2)
+                : (metrics.buildMinutes?.total_minutes?.toFixed(0) || 0)}
             </div>
-            <div className="metric-sublabel">Last 30 days</div>
+            <div className="metric-sublabel">
+              {buildStats?.build_minutes_decimal ? 'From build_stats.json' : 'Last 30 days'}
+            </div>
           </div>
 
           <div className="metric-card">
@@ -210,7 +301,7 @@ function MetricsDashboard({ repositoryId }) {
                 <div className="metric-value">
                   {devSlowdown.delta.latest_vs_median_pct === null ? '—' : devSlowdown.delta.latest_vs_median_pct.toFixed(1) + '%'}
                 </div>
-                <div className="metric-sublabel">Slow if > P90</div>
+                <div className="metric-sublabel">Slow if &gt; P90</div>
               </div>
               <div className="metric-card">
                 <div className="metric-label">Delta vs previous</div>
@@ -333,8 +424,8 @@ function MetricsDashboard({ repositoryId }) {
         )}
       </div>
 
-      <div className="card neon-card">
-        <h2 style={{color:'#fff'}}>Resource Usage (CPU & Memory)</h2>
+      <div className="card">
+        <h2>Resource Usage (CPU & Memory)</h2>
         {!resource ? (
           <div className="empty-state" style={{color:'#fff'}}>Loading resource usage...</div>
         ) : resource.error ? (
@@ -350,36 +441,467 @@ function MetricsDashboard({ repositoryId }) {
         )}
       </div>
 
-      <div className="card neon-card">
-        <h2 style={{color:'#fff'}}>Vulnerability Report</h2>
+      <div className="card">
+        <h2>Vulnerability Report</h2>
         {!vulns ? (
-          <div className="empty-state" style={{color:'#fff'}}>Loading vulnerabilities...</div>
+          <div className="empty-state">Loading vulnerabilities...</div>
         ) : vulns.error ? (
-          <div className="text-danger" style={{color:'#ff00ea'}}>{vulns.error}</div>
+          <div className="text-danger">
+            <div><strong>Error:</strong> {vulns.error}</div>
+            {vulns.searched_path && <div className="small mt-2">Searched path: {vulns.searched_path}</div>}
+            {vulns.repo_slug && <div className="small">Repo slug: {vulns.repo_slug}</div>}
+            {vulns.repo_name && <div className="small">Repo name: {vulns.repo_name}</div>}
+          </div>
         ) : (
           <div>
             {vulns.vulnerabilities && vulns.vulnerabilities.length > 0 ? (
               <div>
-                <div className="mb-2" style={{color:'#fff'}}>Found <b>{vulns.vulnerabilities.length}</b> vulnerabilities:</div>
-                <ul>
-                  {vulns.vulnerabilities.map((v, idx) => (
-                    <li key={idx} style={{color:'#fff'}}>
-                      <b>{v.library}</b> <span className="badge bg-danger">{v.severity}</span> <a href={v.url} target="_blank" rel="noopener noreferrer" style={{color:'#00fff7'}}>{v.cve}</a><br/>
-                      {v.title}<br/>
-                      Installed: {v.installed_version}, Fixed: {v.fixed_version}
-                    </li>
-                  ))}
-                </ul>
-                {vulns.cross_repo && vulns.cross_repo.length > 0 && (
-                  <div className="mt-2" style={{color:'#fffb00'}}>This vulnerability also observed in: {vulns.cross_repo.join(', ')}</div>
-                )}
+                <div className="mb-3">Found <b>{vulns.vulnerabilities.length}</b> vulnerabilities:</div>
+                <div className="table-responsive">
+                  <table className="table table-dark table-striped">
+                    <thead>
+                      <tr>
+                        <th>Library</th>
+                        <th>CVE</th>
+                        <th>Severity</th>
+                        <th>Status</th>
+                        <th>Installed</th>
+                        <th>Fixed</th>
+                        <th>Cross-Repo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {vulns.vulnerabilities.map((v, idx) => (
+                        <tr key={idx}>
+                          <td><b>{v.library || v.package}</b></td>
+                          <td>
+                            {v.cve || v.id}
+                            {v.url && <a href={v.url} target="_blank" rel="noopener noreferrer" className="ms-1">🔗</a>}
+                          </td>
+                          <td>
+                            <span className={`badge ${
+                              v.severity === 'CRITICAL' ? 'bg-danger' :
+                              v.severity === 'HIGH' ? 'bg-warning' :
+                              v.severity === 'MEDIUM' ? 'bg-info' : 'bg-secondary'
+                            }`}>
+                              {v.severity}
+                            </span>
+                          </td>
+                          <td>{v.status || 'unknown'}</td>
+                          <td>{v.installed_version || 'N/A'}</td>
+                          <td>{v.fixed_version || 'N/A'}</td>
+                          <td>
+                            {v.cross_repo_count > 0 ? (
+                              <span className="text-warning" title={v.cross_repo_names?.join(', ')}>
+                                Also in {v.cross_repo_count} repo{v.cross_repo_count > 1 ? 's' : ''}: {v.cross_repo_names?.join(', ')}
+                              </span>
+                            ) : (
+                              <span className="text-muted">—</span>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             ) : (
-              <div className="text-success" style={{color:'#00ff6a'}}>No vulnerabilities found.</div>
+              <div className="text-success">No vulnerabilities found.</div>
             )}
           </div>
         )}
       </div>
+
+      {buildStats && !buildStats.error && (
+        <div className="card">
+          <h2>Build Statistics</h2>
+          <div className="row">
+            <div className="col-md-3">
+              <div className="metric-card">
+                <div className="metric-label">Total Builds</div>
+                <div className="metric-value">{buildStats.builds || 0}</div>
+              </div>
+            </div>
+            <div className="col-md-3">
+              <div className="metric-card">
+                <div className="metric-label">Build Duration</div>
+                <div className="metric-value" style={{fontSize: '0.9rem'}}>{buildStats.build_duration || 'N/A'}</div>
+              </div>
+            </div>
+            <div className="col-md-3">
+              <div className="metric-card">
+                <div className="metric-label">Build Minutes Used</div>
+                <div className="metric-value" style={{fontSize: '0.9rem'}}>{buildStats.build_minutes_used || 'N/A'}</div>
+                {buildStats.build_minutes_decimal && (
+                  <div className="metric-sublabel">({buildStats.build_minutes_decimal.toFixed(2)} minutes)</div>
+                )}
+              </div>
+            </div>
+            <div className="col-md-3">
+              {lastPipelineDeploymentTime && lastPipelineDeploymentTime.last_deployment_time && (
+                <div className="metric-card">
+                  <div className="metric-label">Last Pipeline Deployment</div>
+                  <div className="metric-value" style={{fontSize: '0.9rem'}}>
+                    {new Date(lastPipelineDeploymentTime.last_deployment_time).toLocaleString()}
+                  </div>
+                  <div className="metric-sublabel">Build #{lastPipelineDeploymentTime.build_number}</div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Last 5 Pipelines Status */}
+      <div className="card">
+        <h2>Last 5 Pipelines Status</h2>
+        {last5Pipelines.length === 0 ? (
+          <div className="empty-state" style={{color:'#fff'}}>No pipeline data available.</div>
+        ) : (
+          <div className="table-responsive">
+            <table className="table table-dark table-striped">
+              <thead>
+                <tr>
+                  <th>Build #</th>
+                  <th>State</th>
+                  <th>Commit</th>
+                  <th>Duration</th>
+                  <th>Failed Step</th>
+                  <th>Error Summary</th>
+                  <th>Cross-Repo</th>
+                  <th>Log</th>
+                </tr>
+              </thead>
+              <tbody>
+                {last5Pipelines.map((p, idx) => (
+                  <tr key={idx}>
+                    <td>#{p.build_number || p.build_id}</td>
+                    <td>
+                      <span className={`badge ${
+                        p.state === 'SUCCESSFUL' ? 'bg-success' :
+                        p.state === 'FAILED' || p.state === 'ERROR' ? 'bg-danger' :
+                        'bg-warning'
+                      }`}>
+                        {p.state}
+                      </span>
+                    </td>
+                    <td>{p.commit_hash ? p.commit_hash.substring(0, 8) : 'N/A'}</td>
+                    <td>{p.duration_seconds ? `${p.duration_seconds.toFixed(1)}s` : 'N/A'}</td>
+                    <td>{p.failed_step || '—'}</td>
+                    <td className="text-truncate" style={{maxWidth: '300px'}} title={p.error_message}>
+                      {p.error_message || '—'}
+                    </td>
+                    <td>
+                      {p.cross_repo_count > 0 ? (
+                        <span className="text-warning">
+                          Also in {p.cross_repo_count} repo{p.cross_repo_count > 1 ? 's' : ''}
+                        </span>
+                      ) : (
+                        <span className="text-muted">—</span>
+                      )}
+                    </td>
+                    <td>
+                      {p.log_url && (
+                        <a href={p.log_url} target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-outline-light">
+                          View
+                        </a>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+      {/* Build Numbers by Environment */}
+      {buildNumbersByEnv && buildNumbersByEnv.by_environment && (
+        <div className="card">
+          <h2>Build Numbers Deployed by Environment</h2>
+          <div className="table-responsive">
+            <table className="table table-dark table-striped">
+              <thead>
+                <tr>
+                  <th>Environment</th>
+                  <th>Build Number</th>
+                  <th>Commit</th>
+                  <th>Deployed At</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.values(buildNumbersByEnv.by_environment).map((env, idx) => (
+                  <tr key={idx}>
+                    <td><b>{env.environment}</b></td>
+                    <td>#{env.build_number || 'N/A'}</td>
+                    <td>{env.commit_hash ? env.commit_hash.substring(0, 8) : 'N/A'}</td>
+                    <td>{env.deployed_at ? new Date(env.deployed_at).toLocaleString() : 'N/A'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* Slow Pipeline Analysis - Always show this section */}
+      <div className="card">
+        <h2>Slow Pipeline Analysis</h2>
+        {!slowPipelineAnalysis ? (
+          <div className="empty-state" style={{color:'#fff'}}>Loading slow pipeline analysis...</div>
+        ) : slowPipelineAnalysis.analysis && slowPipelineAnalysis.analysis.length > 0 ? (
+          <div>
+            <div className="mb-3" style={{color:'#fff'}}>{slowPipelineAnalysis.message}</div>
+            <div className="table-responsive">
+              <table className="table table-dark table-striped">
+                <thead>
+                  <tr>
+                    <th>Analysis</th>
+                    <th>Build #</th>
+                    <th>Commit</th>
+                    <th>Duration</th>
+                    <th>Median</th>
+                    <th>Slower By</th>
+                    <th>Created At</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {slowPipelineAnalysis.analysis.map((analysis, idx) => (
+                    <tr key={idx}>
+                      <td><b>{analysis.message || `${slowPipelineAnalysis.repository_name} is slower by ${analysis.slower_by_pct.toFixed(1)}% after commit ${analysis.commit_hash ? analysis.commit_hash.substring(0, 8) : 'unknown'}`}</b></td>
+                      <td>#{analysis.build_number || analysis.build_id}</td>
+                      <td>{analysis.commit_hash ? analysis.commit_hash.substring(0, 8) : 'N/A'}</td>
+                      <td>{analysis.duration_seconds ? `${analysis.duration_seconds.toFixed(1)}s` : 'N/A'}</td>
+                      <td>{analysis.median_duration_seconds ? `${analysis.median_duration_seconds.toFixed(1)}s` : 'N/A'}</td>
+                      <td className="text-warning">
+                        {analysis.slower_by_pct > 0 ? `${analysis.slower_by_pct.toFixed(1)}%` : '—'}
+                      </td>
+                      <td>{analysis.created_at ? new Date(analysis.created_at).toLocaleString() : 'N/A'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ) : (
+          <div className="empty-state" style={{color:'#fff'}}>
+            No slow pipelines detected. This requires build data from the last 14 days. 
+            <br />
+            <small>Run <code>python scripts/collector.py</code> to collect build data from Bitbucket.</small>
+          </div>
+        )}
+      </div>
+
+      {/* Pipeline Comparisons - Show all successful pipelines with comparison to previous */}
+      <div className="card">
+        <h2>Pipeline Duration Comparisons</h2>
+        {!pipelineComparisons ? (
+          <div className="empty-state" style={{color:'#fff'}}>Loading pipeline comparisons...</div>
+        ) : pipelineComparisons.pipelines && pipelineComparisons.pipelines.length > 0 ? (
+          <div>
+            <div className="mb-3" style={{color:'#fff'}}>{pipelineComparisons.message}</div>
+            <div className="table-responsive">
+              <table className="table table-dark table-striped">
+                <thead>
+                  <tr>
+                    <th>Build #</th>
+                    <th>Commit</th>
+                    <th>Duration</th>
+                    <th>Previous Build</th>
+                    <th>Previous Commit</th>
+                    <th>Previous Duration</th>
+                    <th>Comparison</th>
+                    <th>Completed At</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pipelineComparisons.pipelines.map((p, idx) => (
+                    <tr key={idx}>
+                      <td><b>#{p.build_number}</b></td>
+                      <td><code>{p.commit_short}</code></td>
+                      <td>
+                        <b>{p.duration_minutes ? `${p.duration_minutes.toFixed(2)} min` : `${p.duration_seconds.toFixed(1)}s`}</b>
+                        <div className="small text-muted">({p.duration_seconds.toFixed(1)}s)</div>
+                      </td>
+                      <td>{p.previous_build_number ? `#${p.previous_build_number}` : '—'}</td>
+                      <td>{p.previous_commit ? <code>{p.previous_commit}</code> : '—'}</td>
+                      <td>{p.previous_duration_seconds ? `${(p.previous_duration_seconds / 60).toFixed(2)} min (${p.previous_duration_seconds.toFixed(1)}s)` : '—'}</td>
+                      <td>
+                        {p.delta_pct !== null && p.delta_pct !== undefined ? (
+                          <span className={p.delta_pct > 0 ? 'text-warning' : p.delta_pct < 0 ? 'text-success' : ''}>
+                            {p.comparison}
+                          </span>
+                        ) : (
+                          <span className="text-muted">{p.comparison}</span>
+                        )}
+                      </td>
+                      <td>{p.completed_at ? new Date(p.completed_at).toLocaleString() : 'N/A'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ) : (
+          <div className="empty-state" style={{color:'#fff'}}>
+            No successful pipelines found. This requires build data from Bitbucket.
+            <br />
+            <small>Run <code>python scripts/collector.py</code> to collect build data.</small>
+          </div>
+        )}
+      </div>
+
+      {/* Latest Failure Analysis */}
+      <div className="card">
+        <h2>Latest Pipeline Failure Analysis</h2>
+        {!latestFailureAnalysis ? (
+          <div className="empty-state" style={{color:'#fff'}}>Loading failure analysis...</div>
+        ) : latestFailureAnalysis.status === "OK" ? (
+          <div className="text-success" style={{color:'#00ff6a'}}>
+            ✓ {latestFailureAnalysis.message}
+          </div>
+        ) : latestFailureAnalysis.status === "FAILED" ? (
+          <div>
+            <div className="mb-3">
+              <div className="text-danger" style={{color:'#ff00ea'}}>
+                <strong>Latest pipeline failed</strong>
+              </div>
+              <div style={{color:'#fff'}}>
+                Build #{latestFailureAnalysis.build_number} • Commit {latestFailureAnalysis.commit_hash?.substring(0, 8) || 'N/A'}
+              </div>
+              {latestFailureAnalysis.completed_at && (
+                <div className="small text-muted" style={{color:'#94a3b8'}}>
+                  Failed at: {new Date(latestFailureAnalysis.completed_at).toLocaleString()}
+                </div>
+              )}
+            </div>
+
+            {/* Failed Steps */}
+            {latestFailureAnalysis.failed_steps && latestFailureAnalysis.failed_steps.length > 0 && (
+              <div className="mb-3">
+                <h5 style={{color:'#fff'}}>Failed Steps:</h5>
+                {latestFailureAnalysis.failed_steps.map((step, idx) => (
+                  <div key={idx} className="mb-3 p-3" style={{background: 'rgba(255,0,234,0.1)', borderRadius: '8px'}}>
+                    <div style={{color:'#fff'}}><strong>{step.step_name}</strong></div>
+                    {step.error_signature && (
+                      <div className="mt-2">
+                        <div className="small" style={{color:'#94a3b8'}}>Error Signature:</div>
+                        <pre style={{background: 'rgba(0,0,0,0.3)', padding: '10px', borderRadius: '4px', fontSize: '0.85rem', color:'#fff', maxHeight: '200px', overflow: 'auto'}}>
+                          {step.error_signature}
+                        </pre>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Known Fixes */}
+            {latestFailureAnalysis.known_fixes && latestFailureAnalysis.known_fixes.length > 0 && (
+              <div className="mb-3">
+                <h5 style={{color:'#00ff6a'}}>Suggested Fixes:</h5>
+                {latestFailureAnalysis.known_fixes.map((fix, idx) => (
+                  <div key={idx} className="mb-3 p-3" style={{background: 'rgba(0,255,106,0.1)', borderRadius: '8px'}}>
+                    <div style={{color:'#00ff6a'}}><strong>Cause:</strong> {fix.cause}</div>
+                    <div className="mt-2" style={{color:'#fff'}}>
+                      <strong>Fix:</strong>
+                      <ul className="mt-2">
+                        {fix.fix.map((f, i) => (
+                          <li key={i}>{f}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    {fix.link && (
+                      <div className="mt-2">
+                        <a href={fix.link} target="_blank" rel="noopener noreferrer" style={{color:'#00fff7'}}>
+                          Learn more →
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Cross-Repo Matches */}
+            {latestFailureAnalysis.other_repos_count > 0 && (
+              <div className="mb-3">
+                <h5 style={{color:'#fffb00'}}>
+                  This error was also seen in {latestFailureAnalysis.other_repos_count} other repositor{latestFailureAnalysis.other_repos_count > 1 ? 'ies' : 'y'}:
+                </h5>
+                <div className="table-responsive">
+                  <table className="table table-dark table-striped table-sm">
+                    <thead>
+                      <tr>
+                        <th>Repository</th>
+                        <th>Build #</th>
+                        <th>Occurred At</th>
+                        <th>Error Excerpt</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {latestFailureAnalysis.other_repos_with_same_error.map((repo, idx) => (
+                        <tr key={idx}>
+                          <td><strong>{repo.repository_name || repo.repository_slug}</strong></td>
+                          <td>#{repo.build_number}</td>
+                          <td>{repo.occurred_at ? new Date(repo.occurred_at).toLocaleString() : 'N/A'}</td>
+                          <td className="small">{repo.error_message || '—'}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {latestFailureAnalysis.other_repos_count === 0 && (
+              <div className="text-muted" style={{color:'#94a3b8'}}>
+                This error has not been seen in other repositories yet.
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="empty-state" style={{color:'#fff'}}>
+            {latestFailureAnalysis.message || "Unable to analyze failures"}
+          </div>
+        )}
+      </div>
+
+      {latestDeployment && latestDeployment.latest_deployment && (
+        <div className="card neon-card">
+          <h2 style={{color:'#fff'}}>Latest Deployment</h2>
+          <div className="row">
+            <div className="col-md-3">
+              <div className="metric-card">
+                <div className="metric-label" style={{color:'#fff'}}>Environment</div>
+                <div className="metric-value" style={{color:'#fff'}}>{latestDeployment.latest_deployment.environment || 'N/A'}</div>
+              </div>
+            </div>
+            <div className="col-md-3">
+              <div className="metric-card">
+                <div className="metric-label" style={{color:'#fff'}}>Build Number</div>
+                <div className="metric-value" style={{color:'#fff'}}>#{latestDeployment.latest_deployment.build_number || 'N/A'}</div>
+              </div>
+            </div>
+            <div className="col-md-3">
+              <div className="metric-card">
+                <div className="metric-label" style={{color:'#fff'}}>Commit</div>
+                <div className="metric-value" style={{color:'#fff'}}>{latestDeployment.latest_deployment.commit_hash?.substring(0, 8) || 'N/A'}</div>
+              </div>
+            </div>
+            <div className="col-md-3">
+              <div className="metric-card">
+                <div className="metric-label" style={{color:'#fff'}}>Deployed At</div>
+                <div className="metric-value small" style={{color:'#fff'}}>
+                  {latestDeployment.latest_deployment.deployed_at 
+                    ? new Date(latestDeployment.latest_deployment.deployed_at).toLocaleString()
+                    : 'N/A'}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

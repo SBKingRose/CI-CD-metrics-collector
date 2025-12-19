@@ -29,11 +29,13 @@ class MetricsCalculator:
         if not prs:
             return {"median_hours": None, "p90_hours": None, "count": 0}
         
-        # Calculate time to merge for each PR
+        # Calculate time to merge for each PR (DORA: closed_on - created_on)
         merge_times = []
         for pr in prs:
-            if pr.created_at and pr.merged_at:
-                delta = pr.merged_at - pr.created_at
+            # Use closed_at if available (more accurate), else merged_at
+            end_time = pr.closed_at or pr.merged_at
+            if pr.created_at and end_time:
+                delta = end_time - pr.created_at
                 merge_times.append(delta.total_seconds() / 3600)  # Convert to hours
         
         if not merge_times:
@@ -269,12 +271,17 @@ class MetricsCalculator:
         
         builds = query.all()
         
-        if not builds:
+        # Need at least 2 builds to calculate meaningful percentiles
+        if len(builds) < 2:
             return []
         
         durations = [b.duration_seconds for b in builds]
         baseline_median = float(np.median(durations))
         baseline_p90 = float(np.percentile(durations, percentile))
+        
+        # If all builds are the same duration, nothing is "slow"
+        if baseline_median == baseline_p90:
+            return []
         
         slow_builds = [b for b in builds if b.duration_seconds > baseline_p90]
         
